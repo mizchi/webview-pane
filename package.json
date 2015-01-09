@@ -6,7 +6,7 @@
   "activationCommands": {
     "atom-workspace": "webview-pane:preview"
   },
-  "repository": "https://github.com/atom/webview-pane",
+  "repository": "https://github.com/mizchi/webview-pane",
   "license": "MIT",
   "engines": {
     "atom": ">0.50.0"
