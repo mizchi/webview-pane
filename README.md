@@ -1,5 +1,5 @@
-# webview-pane package
+# atom-webview-pane package
 
-A short description of your package.
+Internal browser pane that can call devtools.
 
-![A screenshot of your spankin' package](https://f.cloud.github.com/assets/69169/2290250/c35d867a-a017-11e3-86be-cd7c5bf3ff9b.gif)
+![](http://i.gyazo.com/79caff7247ed7f82a793a8a8447476e2.png)
