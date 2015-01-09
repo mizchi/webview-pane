@@ -1,0 +1,17 @@
+{
+  "name": "webview-pane",
+  "main": "./lib/webview-pane",
+  "version": "0.0.0",
+  "description": "A short description of your package",
+  "activationCommands": {
+    "atom-workspace": "webview-pane:toggle"
+  },
+  "repository": "https://github.com/atom/webview-pane",
+  "license": "MIT",
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "dependencies": {
+    "atom-space-pen-views": "^2.0.0"
+  }
+}
