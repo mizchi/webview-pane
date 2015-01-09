@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "description": "A short description of your package",
   "activationCommands": {
-    "atom-workspace": "webview-pane:toggle"
+    "atom-workspace": "webview-pane:preview"
   },
   "repository": "https://github.com/atom/webview-pane",
   "license": "MIT",
