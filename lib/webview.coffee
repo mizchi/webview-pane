@@ -1,22 +1,64 @@
 {View} = require 'atom-space-pen-views'
+{EditorView} = require 'atom'
+
 module.exports =
 class WebView extends View
   @content: (params) ->
     @div class: 'webview-pane', =>
+      @div class: 'webview-url', =>
+        @subview 'editor', new EditorView(mini: true)
       @div class: 'webview-buttons-container', =>
-        @button class: 'webview-reload', 'reload'
-        @button class: 'webview-open-devtools', 'devtools'
+        @button class: 'webview-reload', style: 'border-radius: 0', 'reload'
+        @button class: 'webview-open-devtools', style: 'border-radius: 0', 'devtools'
       @div class:'webview-container', style: 'height: 100%', =>
-        @tag 'webview', src: "file://#{params.fpath}"
-  constructor: ({@fpath}) ->
+        @tag 'webview'
+
+  constructor: ({@fpath, @protocol}) ->
     super
-  getTitle: -> 'web view:'+@fpath
+
+  getTitle: -> 'webview'
+
+  openUri: ->
+    return unless @canOpenUri()
+
+    uri = @protocol + '://' + @fpath
+    unless @webview.src
+      @webview.src = uri
+    else
+      if uri is @_lastUri
+        @webview.executeJavaScript "location.reload()"
+      else
+        @webview.executeJavaScript "location.href='#{uri}'"
+    @_lastUri = uri
+
+  canOpenUri: ->
+    not (@protocol is 'file' and @fpath.indexOf('.html') is -1)
+
+  update: ->
+    [@protocol, @fpath] = @editor.getText().split('://')
+
   attached: ->
-    webview =@element.querySelector('webview')
+    webview = @webview = @element.querySelector('webview')
     @on 'click', '.webview-reload', =>
-      # webview.reloadIgnoringCache()
-      webview.executeJavaScript 'location.reload()'
+      @update()
+      @openUri()
+
     @on 'click', '.webview-open-devtools', =>
       webview.openDevTools()
+
+    @on 'core:confirm', =>
+      @update()
+      @openUri()
+
+    unless @canOpenUri()
+      @fpath = 'localhost'
+      @protocol = 'http'
+
+    uri = @protocol + '://' + @fpath
+    @editor.setText uri
+    @openUri()
+
+  open: ->
+
   destroy: ->
     @element.remove()

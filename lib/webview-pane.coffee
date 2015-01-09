@@ -11,7 +11,7 @@ module.exports = WebviewPane =
   activate: (state) ->
     # Events subscribed to in atom's system can be easily cleaned up with a CompositeDisposable
     @subscriptions = new CompositeDisposable
-    @subscriptions.add atom.commands.add 'atom-workspace', 'webview-pane:preview': => @preview()
+    @subscriptions.add atom.commands.add 'atom-workspace', 'webview-pane:open': => @open()
     atom.workspace.addOpener (uriToOpen) ->
       try
         {protocol, host, pathname} = url.parse(uriToOpen)
@@ -23,7 +23,7 @@ module.exports = WebviewPane =
         pathname = decodeURI(pathname) if pathname
       catch error
         return
-      new WebView fpath: pathname
+      new WebView fpath: pathname, protocol: host
 
   deactivate: ->
     @modalPanel.destroy()
@@ -33,11 +33,11 @@ module.exports = WebviewPane =
   serialize: ->
     webviewPaneViewState: @webviewPaneView.serialize()
 
-  preview: ->
+  open: ->
     @addWebView()
 
   addWebView: ->
-    uri = 'webview://preview'+atom.workspace.getActiveEditor().getPath()
+    uri = 'webview://file'+atom.workspace.getActiveEditor().getPath()
     previousActivePane = atom.workspace.getActivePane()
     atom.workspace.open(uri, split: 'right', searchAllPanes: true).done (view) ->
       previousActivePane.activate()

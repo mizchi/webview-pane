@@ -2,8 +2,8 @@
 'context-menu':
   'atom-text-editor': [
     {
-      'label': 'Toggle webview-pane'
-      'command': 'webview-pane:toggle'
+      'label': 'Open webview-pane'
+      'command': 'webview-pane:open'
     }
   ]
 'menu': [
@@ -13,8 +13,8 @@
       'label': 'webview-pane'
       'submenu': [
         {
-          'label': 'Toggle'
-          'command': 'webview-pane:toggle'
+          'label': 'Open'
+          'command': 'webview-pane:open'
         }
       ]
     ]

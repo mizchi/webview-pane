@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "description": "A short description of your package",
   "activationCommands": {
-    "atom-workspace": "webview-pane:preview"
+    "atom-workspace": "webview-pane:open"
   },
   "repository": "https://github.com/mizchi/webview-pane",
   "license": "MIT",
